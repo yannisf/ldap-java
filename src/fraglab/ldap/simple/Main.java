@@ -14,14 +14,14 @@ public class Main {
     public static void main(String[] args) throws NamingException {
         Hashtable<String, Object> env = new Hashtable<String, Object>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://localhost:1389/dc=aux-echa,dc=es,dc=atos,dc=net");
+        env.put(Context.PROVIDER_URL, "ldap://localhost:389/dc=fraglab,dc=net");
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "cn=admin,dc=aux-echa,dc=es,dc=atos,dc=net");
+        env.put(Context.SECURITY_PRINCIPAL, "cn=admin,dc=fraglab,dc=net");
         env.put(Context.SECURITY_CREDENTIALS, "yannis");
         DirContext ctx = new InitialDirContext(env);
         SearchControls searchControls = new SearchControls();
         searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-        searchControls.setCountLimit(100);
+        searchControls.setCountLimit(10);
         NamingEnumeration<SearchResult> namingEnumeration =
                 ctx.search("", "(uid=*)", new Object[]{}, searchControls);
         while (namingEnumeration.hasMore()) {
